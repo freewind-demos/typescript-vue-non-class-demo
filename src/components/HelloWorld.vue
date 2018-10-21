@@ -1,16 +1,34 @@
 <template>
   <div class="hello">
-    {{ msg }}
+    <div>
+      <input type="text" v-model="message"/>
+      <button @click="alertMessage">Alert</button>
+    </div>
+    <div>
+      {{ message }}
+    </div>
   </div>
 </template>
 
 <script lang="ts">
-  import {Component, Prop, Vue} from 'vue-property-decorator';
+  import Vue from 'vue'
 
-  @Component
-  export default class HelloWorld extends Vue {
-    @Prop() private msg: string = "Hello Vue!";
-  }
+  export default Vue.extend({
+    props: ['msg'],
+    data: function () {
+      return {
+        message: this.msg
+      }
+    },
+    methods: {
+      alert: function (text: string) {
+        window.alert(text)
+      },
+      alertMessage: function () {
+        this.alert(this.message);
+      }
+    }
+  })
 </script>
 
 <style scoped>
